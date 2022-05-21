@@ -2,6 +2,7 @@ import * as types from './actionTypes'
 
 const initialState = {
     posts: [],
+    post:{},
     loading: false,
     error: null
 }
@@ -34,7 +35,7 @@ const postsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                posts: action.payload
+                post: action.payload
             }
         case types.VIEW_POSTS_ERROR:
             return {

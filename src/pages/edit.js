@@ -1,33 +1,25 @@
 import './../App.css';
 import React, { useEffect, useState } from 'react'
-import api from '../api/api';
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { viewPostsStart } from '../redux/actions';
 
 function Edit() {
-    const [data, setData] = useState([])
-
+    const { id } = useParams()
+    const dispatch = useDispatch()
+    const { post } = useSelector(state => state.data)
     useEffect(() => {
-        const getData = async () => {
-            await api.index()
-                .then((res) => setData(res.data))
-        }
-        getData()
-        console.log("hello world")
+        dispatch(viewPostsStart(id))
     }, [])
-
+    console.log(post)
     return (
         <React.Fragment>
             <div className='p-12'>
                 <h1 className="text-3xl font-bold text-center my-4">
                     Detail Data
                 </h1>
-                <div className='flex flex-col gap-4 '>
-                    {data.map((value, index) => (
-                        <div className='border rounded w-full p-4'>
-                            <p className='font-bold'>{value.title}</p>
-                            <p className='text-gray-500'>{value.body}</p>
-                        </div>
-                    ))}
-                </div>
+                <h1 className='font-bold text-xl'>{post.title}</h1>
+                <p className='text-gray-600'>{post.body}</p>
             </div>
         </React.Fragment>
     );
